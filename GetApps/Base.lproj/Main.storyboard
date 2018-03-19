@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,7 +31,7 @@
                                     <action selector="switchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="yGv-gg-D72"/>
                                 </connections>
                             </switch>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="私有api获取手机里的app（可过审核）" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2Qd-Kh-zW5">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="私有api获取手机里的app（可过审核）" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2Qd-Kh-zW5">
                                 <rect key="frame" x="5" y="154" width="359" height="244"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
