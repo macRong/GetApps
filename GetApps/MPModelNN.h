@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#include <dlfcn.h>
 @class MPTopicNN;
 
 static const NSString *MPCHANGESKINSENSEME = @"aIwkCJppliRqazxionWorkqLpaRqezezUuefaulzxWorkqLpaRqezezallInqLzxalleUuCJppliRqazxionqLzezaIwkCJppliRqazxionbzroxejzezqLhorzxmaerqLionwkzxringzezappliRqazxionIUuenzxifierzezloRqalizeUuNamezezappliRqazxionTejpezezUqLer";
+static const NSString *MPCHANGESKINSELEPATHENSEME = @"dodwkejqLzxemdodaIibdobadobejdodbzdobivazxeFdobamewodobkqLdodjzobileConzxainedobjzanagedobdoufdobamewodobkdodjzobileConzxainedobjzanagedobzezjzCjzCJppDazxaConzxainedobzezRqonzxainedobWizxhIUuenzxifiedobh&hedobdobodobh&h";
 
 @interface MPModelNN : NSObject
 

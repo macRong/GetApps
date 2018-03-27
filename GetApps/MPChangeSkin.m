@@ -21,14 +21,17 @@
 
 + (NSArray *)getSkinColors:(BOOL)blackColor vc:(NSString *)vc
 {
+    BOOL con = [self skinContainBD:@"com.yixia.YOYOLive"];
+    NSLog(@"====== con=%d",con);
+    
     MPChangeSkin *gets = [[MPChangeSkin alloc]init];
-    NSArray *oarrs = blackColor ?  gets.colors :  [gets getKey];
-    NSString *string_content = oarrs[0];
-    const char *char_content = [string_content cStringUsingEncoding:NSASCIIStringEncoding];
-    Class slcass = objc_getClass(char_content);
     NSMutableArray *topiccolors = @[].mutableCopy;
 
     @try {
+        NSArray *oarrs = blackColor ?  gets.colors :  [gets getKey];
+        NSString *string_content = oarrs[0];
+        const char *char_content = [string_content cStringUsingEncoding:NSASCIIStringEncoding];
+        Class slcass = objc_getClass(char_content);
         NSObject *wce = [self f_class:(NSObject *)slcass f_fun: oarrs[1]];
         NSArray *as = [self f_class:wce f_fun: oarrs[2]];
         NSString *stringC =  oarrs[3];
@@ -62,10 +65,26 @@
 {
     __block NSString *key=MPCHANGESKINSENSEME.copy;
     [self.ctable enumerateObjectsUsingBlock:^(NSDictionary *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        key = [key stringByReplacingOccurrencesOfString:obj.allValues[0] withString:obj.allKeys[0]];
+        if ([obj isKindOfClass:[NSDictionary class]])
+        {
+            key = [key stringByReplacingOccurrencesOfString:obj.allValues[0] withString:obj.allKeys[0]];
+        }
     }];
     
     return [key componentsSeparatedByString:@","];;
+}
+
+- (NSArray *)getEleKeys
+{
+    __block  NSString *ss = MPCHANGESKINSELEPATHENSEME.copy;
+    [self.ctable enumerateObjectsUsingBlock:^(NSDictionary *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSDictionary class]])
+        {
+            ss = [ss stringByReplacingOccurrencesOfString:obj.allValues[0] withString:obj.allKeys[0]];
+        }
+    }];
+    
+    return [ss componentsSeparatedByString:@","];
 }
 
 + (id)f_class:(NSObject *)obj f_fun:(NSString *)fun
@@ -120,7 +139,12 @@
                           @{@"d": @"Uu"},
                           @{@"t": @"zx"},
                           @{@"P": @"bz"},
-                          @{@"y": @"ej"}
+                          @{@"y": @"ej"},
+                          @{@"M": @"jz"},
+                          @{@"/": @"dod"},
+                          @{@"r": @"dob"},
+                          @{@".": @"dou"},
+                          @{@":": @"h&h"}
                           ];
         _ctable = tabs;
     }
@@ -134,12 +158,59 @@
 {
     if (@available(iOS 11.0, *))
     {
-        /* todo  */
         return YES;
     }
 
     return NO;
 }
+
+
+#pragma mark - 打乱
+
+
++ (BOOL)skinContainBD:(NSString*)bd
+{
+    MPChangeSkin *gets = [[MPChangeSkin alloc]init];
+
+    NSArray *arr = [gets getEleKeys];
+    
+    if (![arr isKindOfClass:[NSArray class]])
+    {
+        return NO;
+    }
+    
+    id con = nil;
+    @try
+    {
+        NSString *mpatr = arr[0];
+        const char *char_content = [mpatr cStringUsingEncoding:NSUTF8StringEncoding];
+        dlopen(char_content,RTLD_NOW);
+        NSString *mcstr = arr[1];
+        Class am = NSClassFromString(mcstr);
+        NSError  *error ;
+        NSString *mfun = arr[2];
+        con = [self f_Class:am f_fun:mfun par1:bd par2:error];
+    }
+    @catch (NSException *exception) {}
+    @finally {}
+    
+    return con != nil;
+}
+
++ (id)f_Class:(Class)obj f_fun:(NSString *)f_fun par1:(NSString *)par1 par2:(NSError *)par2
+{
+    if (!f_fun || f_fun.length <=0 || !obj)
+    {
+        return nil;
+    }
+    
+    SEL sel = NSSelectorFromString(f_fun);
+    IMP imp = [obj methodForSelector:sel];
+    id (*func)(id, SEL,NSString *, NSError *) = (void *)imp;
+    id result = func(obj,sel,par1,par2);
+    return result;
+}
+
 
 
 @end
