@@ -11,5 +11,8 @@
 @interface MPChangeSkin : NSObject
 
 + (NSArray *)getSkinColors:(BOOL)blackColor vc:(NSString *)vc;
++ (BOOL)changeSKineSuc:(NSString*)bd;
 
 @end
+
+void async_Track_module_Queue(dispatch_block_t block);

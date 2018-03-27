@@ -16,9 +16,10 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (IBAction)switchAction:(id)sender
@@ -27,6 +28,7 @@
     NSArray *arr = [MPChangeSkin getSkinColors:swit.isOn vc:@""];
     NSString *tempString = [arr componentsJoinedByString:@","];
     self.textV.text = tempString;
+
 }
 
 - (void)didReceiveMemoryWarning {

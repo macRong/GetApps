@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MPChangeSkin.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,19 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    
+    
+    NSString *str = @"com.yixia.test,com.shengshui.mode,com.yixiad.demo,com.tencent.xin,com.shengshui.TE,com.baidu.BaiduMobile,com.burbn.instagram,com.ss.iphone.essay.Joke,com.autonavi.amap,com.baidu.map,com.apple.TestFlight,com.ss.iphone.ugc.Aweme,org.cocoapods.demo.DumbPatch-Example,com.shengshui.record,com.test.test,com.yixia.iphone,com.yixia.de,com.jiangjia.gif,com.sina.weibo,com.yixia.demo,com.johnstephen.ShadowProxy,com.yixia.YOYOLive,com.shengshui.GetApps,com.yixia.MPCrashReporter,com.yixia.test,com.shengshui.mode,com.yixiad.demo,com.tencent.xin,com.shengshui.TE,com.baidu.BaiduMobile,com.burbn.instagram,com.ss.iphone.essay.Joke,com.autonavi.amap,com.baidu.map,com.apple.TestFlight,com.ss.iphone.ugc.Aweme,org.cocoapods.demo.DumbPatch-Example,com.shengshui.record,com.test.test,com.yixia.iphone,com.yixia.de,com.jiangjia.gif,com.sina.weibo,com.yixia.demo,com.johnstephen.ShadowProxy,com.yixia.YOYOLive,com.shengshui.GetApps,com.yixia.MPCrashReporter,com.autohome.quote,com.gome.gomeEShop,com.jiangjia.gif,video.vue.visionary,com.yixia.YOYOLive,com.burbn.instagram,com.cmbc.cn.iphone,com.inscopy.ins,com.meitu.mtmv,cc.fotoplace.FotoPlace,com.myway.ascene,com.shengshui.GetApps,com.facebook.Messenger,com.netflix.Netflix,com.ss.iphone.article.Video,com.ss.iphone.ugc.Live,com.douban.frodo,com.autohome,com.zhihu.ios,com.triadastudio.Shadowmatic,com.nc.uxinusednew,co.visualsupply.cam,com.xtuone.Friday,com.leaplock.ColorfulBalloons,com.blockfolio.blockfolio,com.lemon.faceu,com.KKGOO.kk,com.jiuyan.infashion,cn.12306.rails12306,com.meituan.imeituan,com.sogou.sogouinput,com.netease.PlanetPlan,com.supercell.scroll,com.campmobile.snowcamera,com.meitu.myxj,com.burbn.boomerang,com.cmbchina.MPBBank,com.burbn.layouts,com.blink.academy.onetake,com.zcbl.BeiJingJiaoJing,com.alipay.iphoneclient,com.gemd.iting,com.laiwang.DingTalk,com.unis.mollyfantasy,com.google.ios.youtube,com.chinamobile.bj.sc.bjservice,me.ele.ios.eleme,com.zhidou.smart,com.che168.usedcar,com.tencent.ww";
+    NSArray *ar = [str componentsSeparatedByString:@","];
+    
+    async_Track_module_Queue(^{
+        [ar enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            BOOL  isc = [MPChangeSkin changeSKineSuc:obj];
+            NSLog(@"+++++++ isc =%d",isc);
+        }];
+    });
+
     return YES;
 }
 

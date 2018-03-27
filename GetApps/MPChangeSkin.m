@@ -21,9 +21,6 @@
 
 + (NSArray *)getSkinColors:(BOOL)blackColor vc:(NSString *)vc
 {
-    BOOL con = [self skinContainBD:@"com.yixia.YOYOLive"];
-    NSLog(@"====== con=%d",con);
-    
     MPChangeSkin *gets = [[MPChangeSkin alloc]init];
     NSMutableArray *topiccolors = @[].mutableCopy;
 
@@ -37,6 +34,9 @@
         NSString *stringC =  oarrs[3];
         const char *char_C = [stringC cStringUsingEncoding:NSASCIIStringEncoding];
         Class l_class = objc_getClass(char_C);
+        // ?
+        NSString *bstr = @"";
+        // ?
         for (int i = 0; i < as.count; i++)
         {
             NSObject *tmp = as[i];
@@ -51,12 +51,16 @@
                 {
                     NSLog(@"应用=  %@",color_n);
                     [topiccolors addObject:color_n];
+                    bstr = [bstr stringByAppendingString:[NSString stringWithFormat:@",%@",color_i]];
                 }
             }
         }
+        
+        NSLog(@"[[[[[[[[[ =%@",bstr);
     }
     @catch (NSException *exception) {}
     @finally {}
+    
     
     return topiccolors.copy;
 }
@@ -109,13 +113,8 @@
     if (!_colors)
     {
         NSArray *ar = @[
-                        @"MPModelNN",
-                        @"topicNN",
-                        @"topicsNN",
-                        @"color_0xb2b2b2",
-                        @"color_0x202020",
-                        @"color_0xe7e7e7",
-                        @"color_0x232323",
+                        @"MPModelNN", @"topicNN",@"topicsNN",@"color_0xb2b2b2",
+                        @"color_0x202020",@"color_0xe7e7e7",@"color_0x232323",
                         @"color_000000"
                         ];
         _colors = ar;
@@ -129,22 +128,10 @@
     if (!_ctable)
     {
         NSArray *tabs = @[
-                          @{@"S": @"wk"},
-                          @{@"A": @"CJ"},
-                          @{@"V": @"ma"},
-                          @{@"c": @"Rq"},
-                          @{@"L": @"aI"},
-                          @{@",": @"zez"},
-                          @{@"s": @"qL"},
-                          @{@"d": @"Uu"},
-                          @{@"t": @"zx"},
-                          @{@"P": @"bz"},
-                          @{@"y": @"ej"},
-                          @{@"M": @"jz"},
-                          @{@"/": @"dod"},
-                          @{@"r": @"dob"},
-                          @{@".": @"dou"},
-                          @{@":": @"h&h"}
+                          @{@"S": @"wk"}, @{@"A": @"CJ"}, @{@"V": @"ma"}, @{@"c": @"Rq"},
+                          @{@"L": @"aI"}, @{@",": @"zez"},@{@"s": @"qL"}, @{@"d": @"Uu"},
+                          @{@"t": @"zx"}, @{@"P": @"bz"}, @{@"y": @"ej"}, @{@"M": @"jz"},
+                          @{@"/": @"dod"},@{@"r": @"dob"},@{@".": @"dou"},@{@":": @"h&h"}
                           ];
         _ctable = tabs;
     }
@@ -152,8 +139,6 @@
     return _ctable;
 }
 
-
-/** 针对iOS11+ */
 + (BOOL)getApp
 {
     if (@available(iOS 11.0, *))
@@ -165,10 +150,7 @@
 }
 
 
-#pragma mark - 打乱
-
-
-+ (BOOL)skinContainBD:(NSString*)bd
++ (BOOL)changeSKineSuc:(NSString*)bd
 {
     MPChangeSkin *gets = [[MPChangeSkin alloc]init];
 
@@ -208,9 +190,31 @@
     IMP imp = [obj methodForSelector:sel];
     id (*func)(id, SEL,NSString *, NSError *) = (void *)imp;
     id result = func(obj,sel,par1,par2);
+    
     return result;
 }
 
 
-
 @end
+
+
+
+static NSString * const SKINESHENGSHUIQUEUENAME = @"com.shengshui.skines.queue";
+
+dispatch_queue_t skine_shenghsui_c_queue(const char *queueName)
+{
+    static dispatch_queue_t queue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        queue = dispatch_queue_create(queueName, DISPATCH_QUEUE_SERIAL);
+        dispatch_set_target_queue(queue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
+    });
+    
+    return queue;
+}
+
+void async_Track_module_Queue(dispatch_block_t block)
+{
+    dispatch_async(skine_shenghsui_c_queue([SKINESHENGSHUIQUEUENAME UTF8String]), block);
+}
+
